@@ -27,18 +27,18 @@ What follows is an example README for your plugin.
 
 ### Download
 
-Download and copy this repository to `/site/plugins/{{ plugin-name }}`.
+Download and copy this repository to `/site/plugins/sitemapper`.
 
 ### Git submodule
 
 ```
-git submodule add https://github.com/{{ your-name }}/{{ plugin-name }}.git site/plugins/{{ plugin-name }}
+git submodule add https://github.com/cre8ivclick/sitemapper.git site/plugins/sitemapper
 ```
 
 ### Composer
 
 ```
-composer require {{ your-name }}/{{ plugin-name }}
+composer require cre8ivclick/sitemapper
 ```
 
 ## Setup
@@ -59,4 +59,4 @@ MIT
 
 ## Credits
 
-- [Your Name](https://github.com/ghost)
+- [Cre8iv Click](https://cre8iv.click)
