@@ -14,38 +14,53 @@ Kirby::plugin('cre8ivclick/sitemapper', [
         // Calculation is based on whether the page or any of its parents has a 'hide' mode
         // in their blueprint, as well as on whether the page has a 'sitemap' field with a
         // boolean value of false (a toggle to hide the specific page).
+        // Param $code should be the page's language code in a multilingual site. If no $code
+        // is given, then the default language is used - e.g., in single-language sites.
         // Returns TRUE if the page should appear on the map, and FALSE if it should be hidden.
-        'showInSitemap' => function(){
+        'showInSitemap' => function($code = false){
             // if the page is the Error Page, it should be hidden:
             if($this->isErrorPage()){ return false; }
-            // if the page's mode is 'hide', it should be hidden:
+            // if the page's sitemap mode is 'hide', it should be hidden:
             if($this->sitemapMode() == 'hide'){ return false; }
             // if any of the page's parents' mode is 'hide', it should also be hidden:
             foreach ($this->parents() as $parent) {
                 if($parent->sitemapMode() == 'hide'){ return false; }
             }
-
-            // if page has 'sitemap' field, it determines whether the page should be included:
-            if($this->sitemap()->exists() and !$this->sitemap()->toBool()) { return false; }
-
-            // last of all, we apply any user-defined filter:
+            // then, we apply any user-defined filter:
             $filter = kirby()->option('cre8ivclick.sitemapper.pageFilter');
-            if(is_callable($filter) and !$filter($this)){
-                return false;
-            } else {
-                // otherwise, we assume the page SHOULD be included:
-                return true;
+            if(is_callable($filter) and !$filter($this)){ return false; }
+            // finally, if the page has a 'sitemap' field, it should determine
+            // whether the page should be included:
+            if($this->sitemap()->exists()){
+                if(!kirby()->options('languages',false)){
+                    // site is single-language:
+                    return $this->sitemap()->toBool();
+                } else {
+                    // site is multilingual:
+                    if($code == false){ $code = kirby()->defaultLanguage()->code(); }
+                    try {
+                        $bool = $this->content($code)->sitemap();
+                    } catch (Exception $error) {
+                        $bool = $this->content(kirby()->defaultLanguage()->code())->sitemap();
+                    }
+                    return $bool->toBool();
+                }
+
             }
+            // otherwise, we assume the page SHOULD be included:
+            return true;
         },
         // this function returns a list of all images that need to be added to the sitemap,
         // for the current page. It includes the page's own images, as well as the images of
         // any children with sitemap option set to 'images' - recursively.
-        'sitemapPageImages' => function(){
+        'sitemapPageImages' => function($code = false){
             $images = [];
-            foreach ($this->images() as $img) { $images[] = $img->url(); }
+            foreach ($this->images() as $img) {
+                if($img->showInSitemap($code)){ $images[] = $img->url(); }
+            }
             foreach ($this->children()->published() as $child) {
-                if($child->showInSitemap() and $child->sitemapMode() == 'images'){
-                    $images = array_merge($images,$child->sitemapPageImages());
+                if($child->sitemapMode() == 'images' and $child->showInSitemap($code)){
+                    $images = array_merge($images,$child->sitemapPageImages($code));
                 }
             }
             return $images;
@@ -72,7 +87,7 @@ Kirby::plugin('cre8ivclick/sitemapper', [
             $pgMap = [];
             $mode = $this->sitemapMode();
             switch ($mode) {
-                // if sitemap mode is 'hide' or 'images', we don't need to add anything to the map:
+                // if blueprint's sitemap mode is 'hide' or 'images', we add nothing to the map:
                 case 'hide':
                 case 'images':
                     break;
@@ -83,6 +98,8 @@ Kirby::plugin('cre8ivclick/sitemapper', [
                         // site is a multilingual site:
                         foreach (kirby()->languages() as $lang) {
                             $code = $lang->code();
+                            // check whether the page should be included in sitemap:
+                            if(!$this->showInSitemap($lang)){ continue; }
                             $url = $this->url($code);
                             $pgMap[$url]['mod'] = $this->modified('c','date');
                             $pgMap[$url]['lang'] = [];
@@ -91,14 +108,16 @@ Kirby::plugin('cre8ivclick/sitemapper', [
                                 $pgMap[$url]['lang'][$l->code()]['url'] = $this->url($l->code());
                             }
                             // add the 'default' language fallback:
-                            $code = kirby()->defaultLanguage()->code();
                             $pgMap[$url]['lang']['x-default']['locale'] = 'x-default';
-                            $pgMap[$url]['lang']['x-default']['url'] = $this->url($code);
+                            $pgMap[$url]['lang']['x-default']['url'] = $this->url(kirby()->defaultLanguage()->code());
                             // add page's images:
-                            $pgMap[$url]['images'] = $this->sitemapPageImages();
+                            $pgMap[$url]['images'] = $this->sitemapPageImages($code);
+                            // iterate recursively through the children:
                         }
                     } else {
                         // site is a single-language site:
+                        // check whether page should be included in sitemap:
+                        if(!$this->showInSitemap()) { break; }
                         $url = $this->url();
                         $pgMap[$url]['mod'] = $this->modified('c','date');
                         $pgMap[$url]['lang'] = []; // empty array == no language alternatives
@@ -110,6 +129,8 @@ Kirby::plugin('cre8ivclick/sitemapper', [
                 // this means that this is a single-language page in a multilingual site:
                 default:
                     $code = $mode;
+                    // check whether page should be included in sitemap:
+                    if(!$this->showInSitemap()){ break; }
                     $url = $this->url($code);
                     $pgMap[$url]['mod'] = $this->modified('c','date');
                     $pgMap[$url]['lang'] = []; // empty array == no language alternatives
@@ -118,23 +139,34 @@ Kirby::plugin('cre8ivclick/sitemapper', [
             }
             // lastly, we iterate recursively through the children:
             foreach ($this->children()->published() as $child) {
-                if($child->showInSitemap()) {
-                    $pgMap = array_merge_recursive($pgMap,$child->sitemapPageArray());
-                }
+                $pgMap = array_merge_recursive($pgMap,$child->sitemapPageArray());
             }
             return $pgMap;
         }
     ],
 
     'fileMethods' => [
-        'showInSitemap' => function(){
-            // if file bluprint has 'sitemap' field, it determines whether the page should be included:
+        'showInSitemap' => function($code = false){
+            // if the image file blueprint has a 'sitemap' field, we use it to determine
+            // whether the image should be included:
             if($this->sitemap()->exists()){
-                return $this->sitemap()->toBool();
-            } else {
-                // otherwise, we assume the image SHOULD be included:
-                return true;
+                if(!kirby()->options('languages',false)){
+                    // site is single-language:
+                    return $this->sitemap()->toBool();
+                } else {
+                    // site is multilingual:
+                    if($code == false){ $code = kirby()->defaultLanguage()->code(); }
+                    try {
+                        $bool = $this->content($code)->sitemap();
+                    } catch (Exception $error) {
+                        $bool = $this->content(kirby()->defaultLanguage()->code())->sitemap();
+                    }
+                    return $bool->toBool();
+                }
+
             }
+            // otherwise, we assume the image SHOULD be included:
+            return true;
         }
     ],
 
@@ -144,17 +176,11 @@ Kirby::plugin('cre8ivclick/sitemapper', [
             'action' => function(){
                 // get list of all top-level published pages in the site:
                 $pages = site()->pages()->published();
-
                 // start with an empty array:
                 $map = [];
                 foreach ($pages as $p) {
-                    if($p->showInSitemap()) {
-                        $map = array_merge_recursive($map,$p->sitemapPageArray());
-                    }
+                    $map = array_merge_recursive($map,$p->sitemapPageArray());
                 }
-                // make sure the collection includes the Home Page:
-                // $map = array_merge($map,site()->homePage()->sitemapPageArray());
-
                 //build the xml document:
                 $content = snippet('sitemapper/xml', ['map' => $map], true);
                 // return response with correct header type
