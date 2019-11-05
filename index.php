@@ -188,11 +188,21 @@ Kirby::plugin('cre8ivclick/sitemapper', [
             'action'  => function(){
               return go('sitemap.xml', 301);
             }
+        ],
+        [
+            'pattern' => 'sitemap.xsl',
+            'action' => function(){
+                //build the xml document:
+                $data = snippet('sitemapper/xsl', ['settings' => 'data'], true);
+                // return response with correct header type
+                return new Kirby\Cms\Response($data, 'application/xslt+xml');
+            }
         ]
     ],
 
     // our XML and XSL templates:
     'snippets' => [
-        'sitemapper/xml' => __DIR__ . '/snippets/xml.php'
+        'sitemapper/xml' => __DIR__ . '/snippets/xml.php',
+        'sitemapper/xsl' => __DIR__ . '/snippets/xsl.php'
     ]
 ]);
