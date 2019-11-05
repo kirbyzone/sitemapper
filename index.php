@@ -37,28 +37,6 @@ Kirby::plugin('cre8ivclick/sitemapper', [
                 return true;
             }
         },
-        // Function uses the 'sitemap' blueprint option, as well as the site's available languages,
-        // to determine whether this is a single-language page, or whether it should be
-        // available in all of the site's languages.
-        // Returns an array of language codes for the page. If it is a single-language page, it will
-        // return the language code for the page. If it is a multilingual page, returns all of the
-        // site's languages in the array.
-        'sitemapLangs' => function(){
-            // if the page does not have a 'sitemap' option, we assume the default 'show':
-            $langs = [];
-            if($this->sitemapMode() == 'show'){
-                // the default config is to add the page as a multilingual entry in the sitemap:
-                foreach(kirby()->languages() as $t){ $langs[] = $t->code(); }
-            } else {
-                // otherwise, we'll assume the entry is a single-language code.
-                // we can assume this because the mode is either 'show', 'hide', 'images', or
-                // a language code. All other options are trapped elsewhere in our code - i.e.
-                // 'show' is trapped above', and this function will not be called if the page
-                // has a 'hide' or 'images' mode - so this can only be a language code:
-                $langs[] = mb_strtolower($this->sitemapMode(),'UTF-8');
-            }
-            return $langs;
-        },
         // this function returns a list of all images that need to be added to the sitemap,
         // for the current page. It includes the page's own images, as well as the images of
         // any children with sitemap option set to 'images' - recursively.
