@@ -2,7 +2,7 @@
 
 The Cre8iv Sitemapper is a plugin we created at [Cre8iv Click](https://cre8iv.click), to auto-generate syntactically-correct xml sitemaps for our clients' Kirby websites. Sitemaps are used by search engines to find and catalogue the content of your site - and hopefully help your site rankings!
 
-![sitemap preview](preview.png)
+![sitemap preview](https://gitlab.com/cre8ivclick/sitemapper/blob/master/preview.png)
 
 Here is what you need to know about Sitemapper:
 
@@ -131,20 +131,20 @@ Let's say we have a bilingual site - English and German - with a Home page that 
 We could quickly configure our sitemap like this:
 
 ```
-Page                                  `sitemap` blueprint setting
------------------------------------------------------------------------
-Home                                    nothing (normal)
-  |- Hero Banner                        sitemap: images
-  |- About Us                           sitemap: images
-  |- Our Services                       sitemap: images
-Blog                                    nothing (normal)
-  |- article-multi                      nothing (normal)
-  |- article-en                         sitemap: en
-  |- article-de                         sitemap: de
-Global                                  sitemap: hide
-  |- Contact                            nothing (automatically hidden)
-  |- Footer                             nothing (automatically hidden)
-Error                                   nothing (automatically hidden)
+Page                  `sitemap` blueprint setting
+-------------------------------------------------------
+Home                    nothing (normal)
+  |- Hero Banner        sitemap: images
+  |- About Us           sitemap: images
+  |- Our Services       sitemap: images
+Blog                    nothing (normal)
+  |- article-multi      nothing (normal)
+  |- article-en         sitemap: en
+  |- article-de         sitemap: de
+Global                  sitemap: hide
+  |- Contact            nothing (automatically hidden)
+  |- Footer             nothing (automatically hidden)
+Error                   nothing (automatically hidden)
 ```
 
 ****
