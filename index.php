@@ -195,7 +195,7 @@ Kirby::plugin('cre8ivclick/sitemapper', [
             }
         ],
         [
-            'pattern' => 'sitemap',
+            'pattern' => ['(:all)/sitemap','(:all)/sitemap.xml'],
             'action'  => function(){
               return go('sitemap.xml', 301);
             }
