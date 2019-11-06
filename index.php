@@ -82,64 +82,65 @@ Kirby::plugin('cre8ivclick/sitemapper', [
         // ]
         // If a page is multilingual, the array will have several entries - one for each URL
         // of the page, in each language. If a page is single-language, the array will have
-        // only one entry for the page.
+        // only one entry for it.
         'sitemapPageArray' => function(){
-            $pgMap = [];
+            $pgMap = []; // we start with an empty map;
             $mode = $this->sitemapMode();
-            switch ($mode) {
-                // if blueprint's sitemap mode is 'hide' or 'images', we add nothing to the map:
-                case 'hide':
-                case 'images':
-                    break;
-                // 'show' is the default: the site's own 'languages' setting determines
-                // whether the page is multilingual or not:
-                case 'show':
-                    if(kirby()->options('languages',false)){
-                        // site is a multilingual site:
-                        foreach (kirby()->languages() as $lang) {
-                            $code = $lang->code();
-                            // check whether the page should be included in sitemap:
-                            if(!$this->showInSitemap($lang)){ continue; }
-                            $url = $this->url($code);
-                            $pgMap[$url]['mod'] = $this->modified('c','date');
-                            $pgMap[$url]['lang'] = [];
-                            foreach (kirby()->languages() as $l) {
-                                $pgMap[$url]['lang'][$l->code()]['locale'] = $l->locale()[0];
-                                $pgMap[$url]['lang'][$l->code()]['url'] = $this->url($l->code());
-                            }
-                            // add the 'default' language fallback:
-                            $pgMap[$url]['lang']['x-default']['locale'] = 'x-default';
-                            $pgMap[$url]['lang']['x-default']['url'] = $this->url(kirby()->defaultLanguage()->code());
-                            // add page's images:
-                            $pgMap[$url]['images'] = $this->sitemapPageImages($code);
-                            // iterate recursively through the children:
-                        }
-                    } else {
-                        // site is a single-language site:
-                        // check whether page should be included in sitemap:
-                        if(!$this->showInSitemap()) { break; }
-                        $url = $this->url();
-                        $pgMap[$url]['mod'] = $this->modified('c','date');
-                        $pgMap[$url]['lang'] = []; // empty array == no language alternatives
-                        // add page's images:
-                        $pgMap[$url]['images'] = $this->sitemapPageImages();
-                    }
-                    break;
-                // if we get to here, then the sitemap contains a language code.
-                // this means that this is a single-language page in a multilingual site:
-                default:
-                    $code = $mode;
-                    // check whether page should be included in sitemap:
-                    if(!$this->showInSitemap()){ break; }
+            if(kirby()->options('languages',false) and $mode == 'show') {
+                // PAGE IS MULTILINGUAL
+                // - i.e., it will have versions in all of the site's languages:
+                foreach (kirby()->languages() as $lang) {
+                    $code = $lang->code();
+                    // check whether the page should be included in sitemap:
+                    if(!$this->showInSitemap($code)){ continue; }
                     $url = $this->url($code);
                     $pgMap[$url]['mod'] = $this->modified('c','date');
+                    $pgMap[$url]['lang'] = [];
+                    foreach (kirby()->languages() as $l) {
+                        $pgMap[$url]['lang'][$l->code()]['locale'] = $l->locale()[0];
+                        $pgMap[$url]['lang'][$l->code()]['url'] = $this->url($l->code());
+                    }
+                    // add the 'default' language fallback:
+                    $pgMap[$url]['lang']['x-default']['locale'] = 'x-default';
+                    $pgMap[$url]['lang']['x-default']['url'] = $this->url(kirby()->defaultLanguage()->code());
+                    // add page's images:
+                    $pgMap[$url]['images'] = $this->sitemapPageImages($code);
+                    foreach ($this->children()->published() as $child) {
+                        if($child->sitemapMode() == 'images') {
+                            $pgMap[$url]['images'] = array_merge($pgMap[$url]['images'], $child->sitemapPageImages($code));
+                        }
+                    }
+                }
+            } else {
+                // PAGE IS SINGLE-LANGUAGE
+                // - i.e., it should have only one version, in one language:
+                // check whether page should be included in sitemap:
+                if($this->showInSitemap()) {
+                    if(kirby()->options('languages',false)){
+                        // THIS IS A SINGLE-LANGUAGE PAGE IN A MULTILINGUAL SITE:
+                        $code = $this->sitemapMode();
+                        $url = $this->url($code);
+                    } else {
+                        // THIS IS A SINGLE-LANGUAGE SITE:
+                        $code = false;
+                        $url = $this->url();
+                    }
+                    $pgMap[$url]['mod'] = $this->modified('c','date');
                     $pgMap[$url]['lang'] = []; // empty array == no language alternatives
+                    // add page's images:
                     $pgMap[$url]['images'] = $this->sitemapPageImages();
-                    break;
+                    foreach ($this->children()->published() as $child) {
+                        if($child->sitemapMode() == 'images'){
+                            $pgMap[$url]['images'] = array_merge($pgMap[$url]['images'], $child->sitemapPageImages($code));
+                        }
+                    }
+                }
             }
             // lastly, we iterate recursively through the children:
             foreach ($this->children()->published() as $child) {
-                $pgMap = array_merge_recursive($pgMap,$child->sitemapPageArray());
+                if($child->sitemapMode() != 'images') {
+                    $pgMap = array_merge_recursive($pgMap,$child->sitemapPageArray());
+                }
             }
             return $pgMap;
         }
