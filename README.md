@@ -1,6 +1,10 @@
-# Cre8iv Sitemapper: auto-generated sitemaps for Kirby
+# Cre8iv Sitemapper: auto-generated sitemaps for Kirby 3
 
-The Cre8iv Sitemapper is a plugin we created at [Cre8iv Click](https://cre8iv.click), to auto-generate sitemaps for our clients' Kirby websites. It generates syntactically-correct xml sitemaps, that are understood by search engines, helping them find and catalogue the content of your sites - and hopefully help your site rankings! Here is what you need to know about Sitemapper:
+The Cre8iv Sitemapper is a plugin we created at [Cre8iv Click](https://cre8iv.click), to auto-generate syntactically-correct xml sitemaps for our clients' Kirby websites. Sitemaps are used by search engines to find and catalogue the content of your site - and hopefully help your site rankings!
+
+![sitemap preview](preview.png)
+
+Here is what you need to know about Sitemapper:
 
 * It makes the sitemap automatically available at _https://yoursite.com/sitemap.xml_. It will also try to guess when a visitor/bot enters a wrong url - such as _http://yoursite.com/en/sitemap.xml_ - and will automatically redirect them to the correct address.
 * If uses a nice stylesheet to display the site in a human-readable format, if accessed on a browser.
@@ -101,6 +105,7 @@ Let's say that we have a site, where the Home page is a "one-pager". That means,
 The problem is, that we don't want the children pages listed in the map. They are not 'pages', after all - they are just 'sections' of the Home page. On the other hand, these sections have _images_, that we do want to be included in the sitemap - but they should be listed as if they were images of the Home page (the parent page).
 
 We can set this up quickly using the `sitemap` blueprint options in our pages, like this:
+
 * **Home page** does not need a `sitemap` option at all - it will be listed normally.
 * **child pages** should have `sitemap: images` in their blueprint options.
 
@@ -150,19 +155,20 @@ Please use the 'Issues' page of this project to report any bugs you find, and po
 We have tried to keep the code in the plugin reasonably simple, organised and well-commented. Feel free to fork this project, and send enhancements and bug fixes via merge requests. Please be aware, that we aim to keep the plugin _simple_ and _easy to maintain_.
 
 ## To-Do
-* add video content
+* list a site's video content
 * add config options to allow some customisation of sitemap styling
 
 ## License
 
-MIT
+Sitemapper is released under the MIT License - see the 'LICENSE.md' file included in this repository for full license text.
 
 ## Credits
 
 The Cre8iv Sitemapper is developed by [Cre8iv Click](https://cre8iv.click), but we stand on the shoulder of giants:
+
 * the code started by extending [this Cookbook recipe](https://getkirby.com/docs/cookbook/content/sitemap) in the excellent Kirby Docs
 * the stylesheet is based on work done by [Alan Wu](https://github.com/catcto/sitemap-stylesheet)
-* some of the logic was based on work done by [David Somers](https://github.com/omz13/kirby3-xmlsitemap)
+* some of the logic was based on previous sitemap work done by [David Somers](https://github.com/omz13/kirby3-xmlsitemap)
 
-Styling of the sitemap uses the amazing [UIKit](https://getuikit.com) frontend framework.
+Styling of the sitemap is done using the amazing [UIKit](https://getuikit.com) frontend framework.
 
