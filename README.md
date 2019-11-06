@@ -2,7 +2,7 @@
 
 The Cre8iv Sitemapper is a plugin we created at [Cre8iv Click](https://cre8iv.click), to auto-generate syntactically-correct xml sitemaps for our clients' Kirby websites. Sitemaps are used by search engines to find and catalogue the content of your site - and hopefully help your site rankings!
 
-![sitemap preview](https://gitlab.com/cre8ivclick/sitemapper/blob/master/preview.png)
+![sitemap preview](preview.png)
 
 Here is what you need to know about Sitemapper:
 
