@@ -38,7 +38,7 @@ Kirby::plugin('cre8ivclick/sitemapper', [
             // finally, if the page has a 'sitemap' field, it should determine
             // whether the page should be included:
             if($this->sitemap()->exists()){
-                if(!kirby()->options('languages',false)){
+                if(!kirby()->option('languages',false)){
                     // site is single-language:
                     return $this->sitemap()->toBool();
                 } else {
@@ -92,7 +92,7 @@ Kirby::plugin('cre8ivclick/sitemapper', [
         'sitemapPageArray' => function(){
             $pgMap = []; // we start with an empty map;
             $mode = $this->sitemapMode();
-            if(kirby()->options('languages',false) and $mode == 'show') {
+            if(kirby()->option('languages',false) and $mode == 'show') {
                 // PAGE IS MULTILINGUAL
                 // - i.e., it will have versions in all of the site's languages:
                 foreach (kirby()->languages() as $lang) {
@@ -122,7 +122,7 @@ Kirby::plugin('cre8ivclick/sitemapper', [
                 // - i.e., it should have only one version, in one language:
                 // check whether page should be included in sitemap:
                 if($this->showInSitemap()) {
-                    if(kirby()->options('languages',false)){
+                    if(kirby()->option('languages',false)){
                         // THIS IS A SINGLE-LANGUAGE PAGE IN A MULTILINGUAL SITE:
                         $code = $this->sitemapMode();
                         $url = $this->url($code);
@@ -157,7 +157,7 @@ Kirby::plugin('cre8ivclick/sitemapper', [
             // if the image file blueprint has a 'sitemap' field, we use it to determine
             // whether the image should be included:
             if($this->sitemap()->exists()){
-                if(!kirby()->options('languages',false)){
+                if(!kirby()->option('languages',false)){
                     // site is single-language:
                     return $this->sitemap()->toBool();
                 } else {
