@@ -17,68 +17,67 @@
         <html>
             <head>
                 <title>
-                    Sitemap
+                    <?= site()->title()->html() ?> Sitemap
                     <xsl:if test="sm:sitemapindex">Index</xsl:if>
                 </title>
-                <style type="text/css">
-                    *{margin: 0;padding: 0;}
-                    body{color: #333;font-family: Arial;padding: 20px;font-size: 12px;}
-                    h1, h3{margin-bottom: 10px;}
-                    h1{font-size: 24px;}
-                    h3{font-size: 16px;}
-                    h1 span{font-size: 16px;color: #555;margin-left: 5px;}
-                    p{line-height: 20px;}
-                    table{font-size: 12px;}
-                    table th{background: #f5f5f5;}
-                    table td, table th{border: 1px #ccc solid;padding: 5px;text-align: left;}
-                    table{border-collapse: collapse;}
-                    table span{background: #ddd;padding: 0 3px;margin-left: 5px;}
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.2.2/dist/css/uikit.min.css" />
+                <style>
+                    h1 .uk-badge { margin-right: 10px; margin-top: 9px; padding: 9px 12px; }
+                    button.toggle { padding: 0 6px; margin-right: 12px; line-height: 28px; }
+                    div.toggle-content { padding: 18px 12px 0 36px;  }
+                    span.content-icon { margin-right: 6px; }
+                    span.content-tag { margin-left: 9px; }
+                    tr { border-bottom: 1px solid rgba(0, 0, 0, 0.05); }
                 </style>
+                <script src="https://cdn.jsdelivr.net/npm/uikit@3.2.2/dist/js/uikit.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/uikit@3.2.2/dist/js/uikit-icons.min.js"></script>
             </head>
             <body>
-                <h1>
-                    Sitemap
+                <div class="uk-container">
+                <h1 class="uk-heading-divider uk-margin-large-top">
+                    <?= site()->title()->html() ?> Sitemap
                     <xsl:if test="sm:sitemapindex">Index</xsl:if>
                     <xsl:if test="sm:urlset/sm:url/mobile:mobile">
-                        <span>Mobile</span>
+                        <span  class="uk-badge">mobile</span>
                     </xsl:if>
                     <xsl:if test="sm:urlset/sm:url/image:image">
-                        <span>Images</span>
+                        <span  class="uk-badge">images</span>
                     </xsl:if>
                     <xsl:if test="sm:urlset/sm:url/news:news">
-                        <span>News</span>
+                        <span  class="uk-badge">news</span>
                     </xsl:if>
                     <xsl:if test="sm:urlset/sm:url/video:video">
-                        <span>Video</span>
+                        <span  class="uk-badge">videos</span>
                     </xsl:if>
                     <xsl:if test="sm:urlset/sm:url/xhtml:link">
-                        <span>Xhtml</span>
+                        <span  class="uk-badge">alternates</span>
                     </xsl:if>
                 </h1>
-                <h3>
+                <p>
+                    Sitemaps are used by search engines to find and classify the content of you website - more information at <a href="https://sitemaps.org">sitemaps.org</a>. This page displays the sitemap after it has been transformed into a more human-readable format.
                     <xsl:choose>
                         <xsl:when test="sm:sitemapindex">
-                            This XML Sitemap Index file contains
-                            <xsl:value-of select="count(sm:sitemapindex/sm:sitemap)"/>
+                            This sitemap index file contains
+                            <strong><xsl:value-of select="count(sm:sitemapindex/sm:sitemap)"/></strong>
                             sitemaps.
                         </xsl:when>
                         <xsl:otherwise>
-                            This XML Sitemap contains
-                            <xsl:value-of select="count(sm:urlset/sm:url)"/>
+                            This sitemap contains
+                            <strong><xsl:value-of select="count(sm:urlset/sm:url)"/></strong>
                             URLs.
                         </xsl:otherwise>
                     </xsl:choose>
-                </h3>
+                </p>
 
                 <xsl:apply-templates/>
-
+            </div>
             </body>
         </html>
     </xsl:template>
 
 
     <xsl:template match="sm:sitemapindex">
-        <table cellpadding="0" cellspacing="0" border="0">
+        <table class="uk-table uk-table-hover">
             <tr>
                 <th></th>
                 <th>URL</th>
@@ -107,7 +106,7 @@
     </xsl:template>
 
     <xsl:template match="sm:urlset">
-        <table cellSpacing="0" cellPadding="0" border="0">
+        <table class="uk-table uk-table-hover uk-table-small">
             <tr>
                 <th></th>
                 <th>URL</th>
@@ -133,14 +132,18 @@
                         <xsl:value-of select="$pno"/>
                     </td>
                     <td>
-                        <p>
-                            <a href="{$loc}">
-                                <xsl:value-of select="sm:loc"/>
-                            </a>
-                        </p>
-                        <xsl:apply-templates select="xhtml:*"/>
-                        <xsl:apply-templates select="image:*"/>
-                        <xsl:apply-templates select="video:*"/>
+                        <button type="button" class="uk-button uk-button-default toggle" uk-toggle="target: .toggle-{$pno}; animation: uk-animation-slide-top-small">
+                        <span class="toggle-{$pno}" uk-icon="icon: triangle-down"></span>
+                        <span class="toggle-{$pno}" uk-icon="icon: triangle-up" hidden="true"></span>
+                        </button>
+                        <a href="{$loc}">
+                            <xsl:value-of select="sm:loc"/>
+                        </a>
+                        <div class="toggle-{$pno} toggle-content"  hidden="true">
+                            <xsl:apply-templates select="xhtml:*"/>
+                            <xsl:apply-templates select="image:*"/>
+                            <xsl:apply-templates select="video:*"/>
+                        </div>
                     </td>
                     <xsl:apply-templates select="sm:*"/>
                 </tr>
@@ -162,18 +165,12 @@
             <xsl:value-of select="@href"/>
         </xsl:variable>
         <p>
-            Xhtml:
+            <span class="content-icon" uk-icon="icon: file-text"></span>
             <a href="{$altloc}">
                 <xsl:value-of select="@href"/>
             </a>
-            <span>
+            <span class="uk-text-meta content-tag">
                 <xsl:value-of select="@hreflang"/>
-            </span>
-            <span>
-                <xsl:value-of select="@rel"/>
-            </span>
-            <span>
-                <xsl:value-of select="@media"/>
             </span>
         </p>
         <xsl:apply-templates/>
@@ -183,7 +180,7 @@
             <xsl:value-of select="image:loc"/>
         </xsl:variable>
         <p>
-            Image:
+            <span class="content-icon" uk-icon="icon: image"></span>
             <a href="{$loc}">
                 <xsl:value-of select="image:loc"/>
             </a>
