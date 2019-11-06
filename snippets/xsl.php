@@ -71,6 +71,25 @@
 
                 <xsl:apply-templates/>
             </div>
+            <script type="text/javascript">
+                var elements = document.querySelectorAll('button.toggle');
+                var pos;
+                elements.forEach(function(el){
+                    el.addEventListener('beforeshow', function(e){
+                        pos = e.target.scrollTop;
+                        console.log('beforeshow processed');
+                    });
+                    el.addEventListener('shown', function(e){
+                        e.target.scrollTop = pos;
+                    });
+                    el.addEventListener('beforehide', function(e){
+                        pos = e.target.scrollTop;
+                    });
+                    el.addEventListener('hidden', function(e){
+                        e.target.scrollTop = pos;
+                    });
+                });
+            </script>
             </body>
         </html>
     </xsl:template>
