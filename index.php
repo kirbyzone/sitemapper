@@ -4,6 +4,12 @@ Kirby::plugin('cre8ivclick/sitemapper', [
         'pageFilter' => false
     ],
 
+    // we include a simple 'sitemap' field blueprint, to make it easier for users
+    // to add it to their pages and files blueprints, if they want:
+    'blueprints' => [
+            'fields/sitemap' => __DIR__ . '/blueprints/sitemap.yml'
+    ],
+
     'pageMethods' => [
         // Function used to determine the 'mode' of the page, set via blueprint option.
         // Returns a string: the sitemap mode, if set in the blueprint, or 'show' (default).
