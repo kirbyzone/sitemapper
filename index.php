@@ -100,7 +100,7 @@ Kirby::plugin('cre8ivclick/sitemapper', [
                     // check whether the page should be included in sitemap:
                     if(!$this->showInSitemap($code)){ continue; }
                     $url = $this->url($code);
-                    $pgMap[$url]['mod'] = $this->modified('c','date');
+                    $pgMap[$url]['mod'] = F::modified($this->contentFile($code),'c','date');
                     $pgMap[$url]['lang'] = [];
                     foreach (kirby()->languages() as $l) {
                         $pgMap[$url]['lang'][$l->code()]['locale'] = $l->locale()[0];
