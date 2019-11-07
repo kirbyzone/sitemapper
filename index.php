@@ -94,15 +94,21 @@ Kirby::plugin('cre8ivclick/sitemapper', [
             $mode = $this->sitemapMode();
             if(kirby()->option('languages',false) and $mode == 'show') {
                 // PAGE IS MULTILINGUAL
-                // - i.e., it will have versions in all of the site's languages:
-                foreach (kirby()->languages() as $lang) {
+                // - i.e., it will have versions in all available languages.
+                // We start by checking what content translations we actually have:
+                $langs = [];
+                foreach (kirby()->languages() as $lang){
+                    if(!empty(F::modified($this->contentFile($lang->code())))) { $langs[] = $lang; }
+                }
+                // add the existing language page URLs to the sitemap:
+                foreach ($langs as $lang) {
                     $code = $lang->code();
                     // check whether the page should be included in sitemap:
                     if(!$this->showInSitemap($code)){ continue; }
                     $url = $this->url($code);
                     $pgMap[$url]['mod'] = F::modified($this->contentFile($code),'c','date');
                     $pgMap[$url]['lang'] = [];
-                    foreach (kirby()->languages() as $l) {
+                    foreach ($langs as $l) {
                         $pgMap[$url]['lang'][$l->code()]['locale'] = $l->locale()[0];
                         $pgMap[$url]['lang'][$l->code()]['url'] = $this->url($l->code());
                     }
