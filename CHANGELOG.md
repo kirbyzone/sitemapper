@@ -1,3 +1,9 @@
+### 1.0.3
+add logic to skip untranslated pages in multilingual sites:
+Sitemapper checks whether the page has a content file for the language,
+and will only list the URL if the content file has been created.
+7 November 2019 at 9:11:20 pm AEDT
+
 ### 1.0.2
 add changelog, more doc corrections
 7 November 2019 at 1:31:32 pm AEDT
