@@ -7,7 +7,7 @@ The Cre8iv Sitemapper is a plugin we created at [Cre8iv Click](https://cre8iv.cl
 Here is what you need to know about Sitemapper:
 
 * It makes the sitemap automatically available at _https://yoursite.com/sitemap.xml_. It will also try to guess when a visitor/bot enters a wrong url - such as _http://yoursite.com/en/sitemap.xml_ - and will automatically redirect them to the correct address.
-* If uses a nice stylesheet to display the site in a human-readable format, if accessed on a browser.
+* It uses a nice stylesheet to display the site in a human-readable format, if accessed on a browser.
 * It allows you to carefully control which pages get added to - and excluded from - the sitemap. You can control it via a blueprint option, or via a field on the page itself.
 * It allows you to control which images get added to the sitemap, and to which pages. You can control it via bluprint options, and via a field on the individual image content page.
 * It maps pages correctly on multilingual sites, whether the page is multilingual or single-language.
@@ -72,7 +72,7 @@ sitemap: fields/sitemap
 # to extend it:
 sitemap:
   extends: fields/sitemap
-  help: help: Adding content to your site's sitemap helps your search engine rankings.
+  help: Adding content to your site's sitemap helps your search engine rankings.
 ```
 
 If the field is 'on' or 'checked', the page/file will be included. If it is 'off' or 'unchecked', it will be excluded from the sitemap.
@@ -107,7 +107,7 @@ The problem is, that we don't want the children pages listed in the map. They ar
 We can set this up quickly using the `sitemap` blueprint options in our pages, like this:
 
 * **Home page** does not need a `sitemap` option at all - it will be listed normally.
-* **child pages** should have `sitemap: images` in their blueprint options.
+* **child pages** - i.e., 'Hero Banner', 'About Us', 'Our Services' - should have `sitemap: images` in their blueprint options.
 
 The `sitemap: images` option will tell Sitemapper that we don't want the child page listed, but we want its images added to the parent page.
 
@@ -118,7 +118,7 @@ A common way programmers deal with this is by creating multiple templates for co
 
 The problem with this kind of setup is that when you store content for a single-language page in a multilingual site, internally Kirby always stores the content under the _default language_. So, if the default language in our site is English, when the user saves their German 'article-de' page, the content will be saved in an 'English' content file (even though we are presenting it to the user as German). This means, that for these single-language pages, we cannot rely on Kirby's functions to tell us what language the page is actually using - so we use the `sitemap` blueprint option to do it.
 
-In a multilingual site, if the blueprint has no `sitemap` option, then Sitemapper will include the page's URLs in all the languages. If we want to treat the page as a single-language page, and include its URL in just the appropriate language, we pass the language to the `sitemap` option. In our example it works like this:
+In a multilingual site, if the blueprint has no `sitemap` option, then Sitemapper will include the page's URLs in all the languages. If we want to treat the page as a single-language page, and include its URL in just the appropriate language, we just pass the language code to the `sitemap` option. In our example it works like this:
 
 * The parent **'Blog' page** itself is a normal multilingual page, so we don't need to add a `sitemap` option at all - and we'll get 2 Blog page URLs listed: one for the English version, one for the German.
 * **'article-multi' pages** are also normal, multilingual pages, so no bluprint option is needed, and the page URLs for both languages will appear in the sitemap.
@@ -166,7 +166,7 @@ Sitemapper is released under the MIT License - see the 'LICENSE.md' file include
 
 The Cre8iv Sitemapper is developed by [Cre8iv Click](https://cre8iv.click), but we stand on the shoulder of giants:
 
-* the code started by extending [this Cookbook recipe](https://getkirby.com/docs/cookbook/content/sitemap) in the excellent Kirby Docs
+* the code was started by extending [this Cookbook recipe](https://getkirby.com/docs/cookbook/content/sitemap) in the excellent Kirby Docs
 * the stylesheet is based on work done by [Alan Wu](https://github.com/catcto/sitemap-stylesheet)
 * some of the logic was based on previous sitemap work done by [David Somers](https://github.com/omz13/kirby3-xmlsitemap)
 
