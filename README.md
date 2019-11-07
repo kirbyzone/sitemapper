@@ -23,7 +23,7 @@ You can simply download and copy this repository to `/site/plugins/sitemapper`.
 You can add Sitemapper to your project as a git submodule, with this command:
 
 ```
-git submodule add https://github.com/cre8ivclick/sitemapper.git site/plugins/sitemapper
+git submodule add https://gitlab.com/cre8ivclick/sitemapper.git site/plugins/sitemapper
 ```
 
 ### Composer
