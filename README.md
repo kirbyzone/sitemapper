@@ -213,7 +213,7 @@ We have tried to keep the code in the plugin reasonably simple, organised and we
 
 ## To-Do
 * list a site's video content
-* add config options to allow some customisation of sitemap styling
+* include optional 'changefreq' and 'priority' tags for sitemap entries
 
 ## License
 
