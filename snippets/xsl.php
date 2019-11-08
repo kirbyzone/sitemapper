@@ -22,12 +22,137 @@
                 </title>
                 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.2.2/dist/css/uikit.min.css" />
                 <style>
-                    h1 .uk-badge { margin-right: 10px; margin-top: 9px; padding: 9px 12px; }
-                    button.toggle { padding: 0 6px; margin-right: 12px; line-height: 28px; }
+<?php
+// Possible Custom Colours:
+//page background colour
+$bgClr = option('cre8ivclick.sitemapper.bgClr');
+//normal text colour
+$txtClr = option('cre8ivclick.sitemapper.txtClr');
+//page title
+$titleClr = option('cre8ivclick.sitemapper.titleClr');
+//background colour of pill-shaped badges shown next to page title
+$badgeBgClr = option('cre8ivclick.sitemapper.badgeBgClr');
+//text colour of pill-shaped badges shown next to page title
+$badgeTxtClr = option('cre8ivclick.sitemapper.badgeTxtClr');
+//colour of divider line below the title, and at the bottom of page
+$dividerClr = option('cre8ivclick.sitemapper.dividerClr');
+// colour of text in the table column headings
+$thClr = option('cre8ivclick.sitemapper.thClr');
+// colour of border between table rows
+$rowBorderClr = option('cre8ivclick.sitemapper.rowHoverClr') ?: 'lightGray';
+// background colour of table rows when hovered:
+$rowHoverClr = option('cre8ivclick.sitemapper.rowHoverClr');
+//colour of all links on the page
+$linkClr = option('cre8ivclick.sitemapper.linkClr');
+//colour of links when hovered
+$linkHoverClr = option('cre8ivclick.sitemapper.linkHoverClr');
+//background colour of disclosure buttons
+$btnBgClr = option('cre8ivclick.sitemapper.btnBgClr');
+//background colour of disclosure buttons when hovered
+$btnBgHoverClr = option('cre8ivclick.sitemapper.btnBgHoverClr');
+//colour of disclosure arrow icon inside disclosure buttons
+$btnIconClr = option('cre8ivclick.sitemapper.btnIconClr');
+//colour of disclosure arrow icon when hovered
+$btnIconHoverClr = option('cre8ivclick.sitemapper.btnIconHoverClr');
+//colour of icon shown before page/image url
+$urlIconClr = option('cre8ivclick.sitemapper.urlIconClr');
+//colour of language tag shown after page url
+$urlTagClr = option('cre8ivclick.sitemapper.urlTagClr');
+// by-line for the end of the page:
+$byLine = option('cre8ivclick.sitemapper.byLine');
+?>
+                    body {
+<?php if($bgClr): ?>
+                        background: <?= $bgClr ?>;
+<?php endif;
+      if($txtClr): ?>
+                        color: <?= $txtClr ?>;
+<?php endif; ?>
+                    }
+                    h1.uk-heading-divider {
+<?php if($titleClr): ?>
+                        color: <?= $titleClr ?>;
+<?php endif;
+      if($dividerClr):
+?>
+                        border-bottom-color: <?= $dividerClr ?>;
+<?php endif; ?>
+                    }
+                    h1 .uk-badge {
+                        margin-right: 10px;
+                        margin-top: 9px;
+                        padding: 9px 12px;
+<?php if($badgeBgClr): ?>
+                        background: <?= $badgeBgClr ?>;
+<?php endif;
+      if($badgeTxtClr): ?>
+                        color: <?= $badgeTxtClr ?>;
+<?php endif; ?>
+                    }
+                    h1 .uk-badge:hover {
+<?php if($badgeTxtClr): ?>
+                        color: <?= $badgeTxtClr ?>;
+<?php else: ?>
+                        color: #fff;
+<?php endif; ?>
+                    }
+                    a {
+<?php if($linkClr): ?>
+                        color: <?= $linkClr ?>;
+<?php endif; ?>
+                        transition: color 0.4s;
+                    }
+<?php if($linkHoverClr): ?>
+                    a:hover { color: <?= $linkHoverClr ?>; }
+<?php endif;
+      if($dividerClr):
+?>
+                    hr { border-color: <?= $dividerClr ?>; }
+<?php endif; ?>
+                    button.toggle {
+                        padding: 0 6px;
+                        margin-right: 12px;
+                        line-height: 28px;
+                        border: none;
+<?php if($btnBgClr): ?>
+                        background: <?= $btnBgClr ?>;
+<?php endif;
+      if($btnIconClr): ?>
+                        color: <?= $btnIconClr ?>;
+<?php endif; ?>
+                    }
+                    button.toggle:hover {
+<?php if($btnBgHoverClr): ?>
+                        background: <?= $btnBgHoverClr ?>;
+<?php endif;
+      if($btnIconHoverClr): ?>
+                        color: <?= $btnIconHoverClr ?>;
+<?php endif; ?>                    }
                     div.toggle-content { padding: 18px 12px 0 36px;  }
-                    span.content-icon { margin-right: 6px; }
-                    span.content-tag { margin-left: 9px; }
-                    tr { border-bottom: 1px solid rgba(0, 0, 0, 0.05); }
+                    span.content-icon {
+                        margin-right: 6px;
+<?php if($urlIconClr): ?>
+                        color: <?= $urlIconClr ?>;
+<?php endif; ?>
+                    }
+                    span.content-tag {
+                        margin-left: 9px;
+<?php if($urlTagClr): ?>
+                        color: <?= $urlTagClr ?>;
+<?php endif; ?>
+                    }
+<?php if($rowBorderClr): ?>
+                    tr { border-bottom: 1px solid <?= $rowBorderClr ?>; }
+<?php endif;
+// if no colour is specified for the column headings, we try to use the body text colour:
+      $thClr = option('cre8ivclick.sitemapper.thClr') ?: option('cre8ivclick.sitemapper.txtClr');
+      if($thClr): ?>
+                    .uk-table th { color: <?= $thClr ?>; }
+<?php endif;
+      if($rowHoverClr):
+?>
+                    .uk-table-hover tbody tr:hover { background: <?= $rowHoverClr ?>; }
+<?php endif; ?>
                 </style>
                 <script src="https://cdn.jsdelivr.net/npm/uikit@3.2.2/dist/js/uikit.min.js"></script>
                 <script src="https://cdn.jsdelivr.net/npm/uikit@3.2.2/dist/js/uikit-icons.min.js"></script>
@@ -70,6 +195,11 @@
                 </p>
 
                 <xsl:apply-templates/>
+                <p class="uk-text-small uk-text-center">
+                    <?= $byLine ?>
+
+                </p>
+                <hr class="uk-margin-large-bottom" />
             </div>
             <script type="text/javascript">
                 var elements = document.querySelectorAll('button.toggle');

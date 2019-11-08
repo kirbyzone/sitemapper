@@ -149,6 +149,63 @@ Error                   nothing (automatically hidden)
 
 ****
 
+## Customising The Browser Preview
+
+### Styling
+You can use the following style options in your `config.php` file to adapt the appearance of the  sitemap that is displayed in-browser:
+
+```
+// SITEMAPPER STYLING OPTIONS:
+//page background colour:
+'cre8ivclick.sitemapper.bgClr' => '#111',
+// normal text colour:
+'cre8ivclick.sitemapper.txtClr' => '#666',
+// colour of page title:
+'cre8ivclick.sitemapper.titleClr' => '#999',
+// background colour of pill-shaped badges shown next to page title:
+'cre8ivclick.sitemapper.badgeBgClr' => '#333',
+// text colour of pill-shaped badges shown next to page title:
+'cre8ivclick.sitemapper.badgeTxtClr' => '#999',
+// colour of divider line below the title, and at the bottom of page:
+'cre8ivclick.sitemapper.dividerClr' => 'dodgerBlue',
+// colour of text in the table column headings:
+'cre8ivclick.sitemapper.thClr' => 'dodgerBlue',
+// colour of border between table rows:
+'cre8ivclick.sitemapper.rowBorderClr' => '#082a4c',
+// background colour of table rows when hovered:
+'cre8ivclick.sitemapper.rowHoverClr' => 'rgba(30, 144, 255, 0.1)',
+// colour of all links on the page:
+'cre8ivclick.sitemapper.linkClr' => '#999',
+// colour of links when hovered:
+'cre8ivclick.sitemapper.linkHoverClr' => '#ccc',
+// background colour of disclosure buttons:
+'cre8ivclick.sitemapper.btnBgClr' => '#333',
+// background colour of disclosure buttons when hovered:
+'cre8ivclick.sitemapper.btnBgHoverClr' => 'rgba(30, 144, 255, 0.1)',
+// colour of disclosure arrow icon inside disclosure buttons:
+'cre8ivclick.sitemapper.btnIconClr' => '#999',
+// colour of disclosure arrow icon when hovered:
+'cre8ivclick.sitemapper.btnIconHoverClr' => 'dodgerBlue',
+// colour of icon shown before page/image url:
+'cre8ivclick.sitemapper.urlIconClr' => '#999',
+// colour of language tag shown after page url
+'cre8ivclick.sitemapper.urlTagClr' => '#666',
+```
+
+Copy the options above to give your sitemap a 'dark' style.
+
+### By-Line
+A small attribution text is shown at the bottom of the sitemap table. We would be grateful if
+you could leave that text there, as acknowledgement for our work. We understand that this is not
+always possible, so if you need to remove or change that text, you can do so with this option in
+your `config.php` file:
+
+```
+'cre8ivclick.sitemapper.byLine' => 'this is the new by-line!'
+```
+
+****
+
 ## Contributing
 Please use the 'Issues' page of this project to report any bugs you find, and post ideas and feature requests.
 
