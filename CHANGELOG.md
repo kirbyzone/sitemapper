@@ -1,3 +1,7 @@
+### 1.0.4
+add ability to customise sitemap styling, and by-line.
+8 November 2019 at 1:40 pm AEDT
+
 ### 1.0.3
 add logic to skip untranslated pages in multilingual sites:
 Sitemapper checks whether the page has a content file for the language,
