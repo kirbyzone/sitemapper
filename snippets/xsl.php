@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?= '<?xml version="1.0" encoding="UTF-8"?>'  ?>
 <xsl:stylesheet
         version="1.0"
         xmlns:sm="http://www.sitemaps.org/schemas/sitemap/0.9"
