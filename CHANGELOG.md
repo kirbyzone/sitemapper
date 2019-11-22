@@ -1,3 +1,9 @@
+### 1.1
+add ability to use custom mapping function
+enhance xsl stylesheet routing
+improve docs and move them to wiki
+22 November 2019 at 6:15 pm AEDT
+
 ### 1.0.5
 fix composer.json due to failed deployment via Packagist
 8 November 2019 at 1:45 pm AEDT

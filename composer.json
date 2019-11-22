@@ -13,7 +13,8 @@
     ],
     "support": {
         "source": "https://gitlab.com/cre8ivclick/sitemapper",
-        "issues": "https://gitlab.com/cre8ivclick/sitemapper/issues"
+        "issues": "https://gitlab.com/cre8ivclick/sitemapper/issues",
+        "wiki": "https://gitlab.com/cre8ivclick/sitemapper/wikis/home"
     },
     "require": {
         "getkirby/composer-installer": "^1.1"
