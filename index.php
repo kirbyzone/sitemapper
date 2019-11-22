@@ -235,6 +235,12 @@ Kirby::plugin('cre8ivclick/sitemapper', [
                 // return response with correct header type
                 return new Kirby\Cms\Response($data, 'application/xslt+xml');
             }
+        ],
+        [
+            'pattern' => ['(:all)/sitemap.xsl'],
+            'action'  => function(){
+              return go('sitemap.xsl', 301);
+            }
         ]
     ],
 
