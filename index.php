@@ -141,7 +141,31 @@ Kirby::plugin('cre8ivclick/sitemapper', [
                     $pgMap[$url]['mod'] = F::modified($this->contentFile($code),'c','date');
                     $pgMap[$url]['lang'] = [];
                     foreach ($langs as $l) {
-                        $pgMap[$url]['lang'][$l->code()]['locale'] = $l->locale()[0];
+                        // determining the correct locale:
+                        $a = $l->locale();
+                        if(count($a) == 1) {
+                            $locale = array_values($a)[0];
+                        } elseif(array_key_exists(LC_ALL, $a)) {
+                            $locale = $l->locale(LC_ALL);
+                        } elseif(array_key_exists(LC_COLLATE, $a)) {
+                            $locale = $l->locale(LC_COLLATE);
+                        } elseif(array_key_exists(LC_CTYPE, $a)) {
+                            $locale = $l->locale(LC_CTYPE);
+                        } elseif(array_key_exists(LC_MONETARY, $a)) {
+                            $locale = $l->locale(LC_MONETARY);
+                        } elseif(array_key_exists(LC_NUMERIC, $a)) {
+                            $locale = $l->locale(LC_NUMERIC);
+                        } elseif(array_key_exists(LC_TIME, $a)) {
+                            $locale = $l->locale(LC_TIME);
+                        } elseif(array_key_exists(LC_MESSAGES, $a)) {
+                            $locale = $l->locale(LC_MESSAGES);
+                        } else {
+                            $locale = "unkown";
+                        }
+                        // if locale was set using detailed PHP settings,
+                        // it will have an extension, which we have to remove:
+                        $locale = pathinfo($locale,PATHINFO_FILENAME);
+                        $pgMap[$url]['lang'][$l->code()]['locale'] = $locale;
                         $pgMap[$url]['lang'][$l->code()]['url'] = $this->url($l->code());
                     }
                     // add the 'default' language fallback:
