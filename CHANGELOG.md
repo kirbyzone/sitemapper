@@ -1,5 +1,5 @@
 ### 1.1.1
-add ability to handle detailed language configs
+add ability to handle detailed locale configs
 30 November 2019 at 9:10 pm AEDT
 
 ### 1.1
