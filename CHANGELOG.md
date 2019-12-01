@@ -1,3 +1,7 @@
+### 1.1.2
+add fallback to language code for detailed locale configs
+1 December 2019 at 11:10 am AEDT
+
 ### 1.1.1
 add ability to handle detailed locale configs
 30 November 2019 at 9:10 pm AEDT
