@@ -1,3 +1,7 @@
+### 1.1.3
+add ability to change/localise all strings showing in browser template
+11 December 2019 at 4:50 pm AEDT
+
 ### 1.1.2
 add fallback to language code for detailed locale configs
 1 December 2019 at 11:10 am AEDT

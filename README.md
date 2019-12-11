@@ -7,7 +7,7 @@ The Cre8iv Sitemapper is a plugin we created at [Cre8iv Click](https://cre8iv.cl
 Here is what you need to know about Sitemapper:
 
 * It makes the sitemap automatically available at _https://yoursite.com/sitemap.xml_. It will also try to guess when a visitor/bot enters a wrong url - such as _http://yoursite.com/en/sitemap.xml_ - and will automatically redirect them to the correct address.
-* It uses a nice, customisable stylesheet to display the site in a human-readable format, if accessed on a browser.
+* It uses a nice, customisable stylesheet to display the site in a human-readable format, if accessed on a browser. You can also customise/localise all strings shown in the in-browser sitemap.
 * It allows you to carefully control which pages get added to - and excluded from - the sitemap. You can control it via a blueprint option, via a field on individual pages, or by using a custom filtering function.
 * You can also control which images get added to the sitemap, and to which pages. You can control it via a bluprint option, and via a field on the individual image content page.
 * It maps pages correctly on multilingual sites, whether the page is multilingual or single-language.

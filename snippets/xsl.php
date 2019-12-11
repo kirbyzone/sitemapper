@@ -17,8 +17,8 @@
         <html>
             <head>
                 <title>
-                    <?= site()->title()->html() ?> Sitemap
-                    <xsl:if test="sm:sitemapindex">Index</xsl:if>
+                    <?= option('cre8ivclick.sitemapper.title') ?>
+                    <xsl:if test="sm:sitemapindex"> - Index</xsl:if>
                 </title>
                 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.2.2/dist/css/uikit.min.css" />
                 <style>
@@ -58,6 +58,8 @@ $btnIconHoverClr = option('cre8ivclick.sitemapper.btnIconHoverClr');
 $urlIconClr = option('cre8ivclick.sitemapper.urlIconClr');
 //colour of language tag shown after page url
 $urlTagClr = option('cre8ivclick.sitemapper.urlTagClr');
+// intro text for the start of the page:
+$intro = str_replace('[[count]]','<xsl:value-of select="count(sm:urlset/sm:url)"/>',option('cre8ivclick.sitemapper.intro'));
 // by-line for the end of the page:
 $byLine = option('cre8ivclick.sitemapper.byLine');
 ?>
@@ -160,13 +162,13 @@ $byLine = option('cre8ivclick.sitemapper.byLine');
             <body>
                 <div class="uk-container">
                 <h1 class="uk-heading-divider uk-margin-large-top">
-                    <?= site()->title()->html() ?> Sitemap
+                    <?= option('cre8ivclick.sitemapper.title') ?>
                     <xsl:if test="sm:sitemapindex">Index</xsl:if>
                     <xsl:if test="sm:urlset/sm:url/mobile:mobile">
                         <span  class="uk-badge">mobile</span>
                     </xsl:if>
                     <xsl:if test="sm:urlset/sm:url/image:image">
-                        <span  class="uk-badge">images</span>
+                        <span  class="uk-badge"><?= option('cre8ivclick.sitemapper.imagesStr') ?></span>
                     </xsl:if>
                     <xsl:if test="sm:urlset/sm:url/news:news">
                         <span  class="uk-badge">news</span>
@@ -175,23 +177,20 @@ $byLine = option('cre8ivclick.sitemapper.byLine');
                         <span  class="uk-badge">videos</span>
                     </xsl:if>
                     <xsl:if test="sm:urlset/sm:url/xhtml:link">
-                        <span  class="uk-badge">alternates</span>
+                        <span  class="uk-badge"><?= option('cre8ivclick.sitemapper.alternatesStr') ?></span>
                     </xsl:if>
                 </h1>
                 <p>
-                    Sitemaps are used by search engines to find and classify the content of you website - more information at <a href="https://sitemaps.org">sitemaps.org</a>. This page displays the sitemap after it has been transformed into a more human-readable format.
-                    <xsl:choose>
-                        <xsl:when test="sm:sitemapindex">
-                            This sitemap index file contains
-                            <strong><xsl:value-of select="count(sm:sitemapindex/sm:sitemap)"/></strong>
-                            sitemaps.
-                        </xsl:when>
-                        <xsl:otherwise>
-                            This sitemap contains
-                            <strong><xsl:value-of select="count(sm:urlset/sm:url)"/></strong>
-                            URLs.
-                        </xsl:otherwise>
-                    </xsl:choose>
+                <xsl:choose>
+                    <xsl:when test="sm:sitemapindex">
+                        This sitemap index file contains
+                        <strong><xsl:value-of select="count(sm:sitemapindex/sm:sitemap)"/></strong>
+                        sitemaps.
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <?= $intro ?>
+                    </xsl:otherwise>
+                </xsl:choose>
                 </p>
 
                 <xsl:apply-templates/>
@@ -229,8 +228,8 @@ $byLine = option('cre8ivclick.sitemapper.byLine');
         <table class="uk-table uk-table-hover">
             <tr>
                 <th></th>
-                <th>URL</th>
-                <th>Last Modified</th>
+                <th><?= option('cre8ivclick.sitemapper.urlStr') ?></th>
+                <th><?= option('cre8ivclick.sitemapper.lastModStr') ?></th>
             </tr>
             <xsl:for-each select="sm:sitemap">
                 <tr>
@@ -258,9 +257,9 @@ $byLine = option('cre8ivclick.sitemapper.byLine');
         <table class="uk-table uk-table-hover uk-table-small">
             <tr>
                 <th></th>
-                <th>URL</th>
+                <th><?= option('cre8ivclick.sitemapper.urlStr') ?></th>
                 <xsl:if test="sm:url/sm:lastmod">
-                    <th>Last Modified</th>
+                    <th><?= option('cre8ivclick.sitemapper.lastModStr') ?></th>
                 </xsl:if>
                 <xsl:if test="sm:url/sm:changefreq">
                     <th>Change Frequency</th>
