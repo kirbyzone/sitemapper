@@ -1,6 +1,6 @@
-# Cre8iv Sitemapper: auto-generated sitemaps for Kirby 3
+# kirbyzone Sitemapper: auto-generated sitemaps for Kirby 3
 
-The Cre8iv Sitemapper is a plugin we created at [Cre8iv Click](https://cre8iv.click), to auto-generate syntactically-correct xml sitemaps for our clients' Kirby websites. Sitemaps are used by search engines to find and catalogue the content of your site - and hopefully help your site rankings!
+The kirbyzone Sitemapper is a plugin we created at [kirbyzone](https://kirby.zone), to auto-generate syntactically-correct xml sitemaps for our clients' Kirby websites. Sitemaps are used by search engines to find and catalogue the content of your site - and hopefully help your site rankings!
 
 ![sitemap preview](preview.png)
 
@@ -24,19 +24,19 @@ You can simply download and copy this repository to `/site/plugins/sitemapper`.
 You can add Sitemapper to your project as a git submodule, with this command:
 
 ```
-git submodule add https://gitlab.com/cre8ivclick/sitemapper.git site/plugins/sitemapper
+git submodule add https://github.com/kirbyzone/sitemapper.git site/plugins/sitemapper
 ```
 
 ### Composer
 If you use composer, you can quickly add Sitemapper to your project like this:
 ```
-composer require cre8ivclick/sitemapper
+composer require kirbyzone/sitemapper
 ```
 
 ****
 
 ## Documentation
-Complete documentation for installing, configuring and using Sitemapper can be found in the [wiki area](https://gitlab.com/cre8ivclick/sitemapper/wikis/home) of this project.
+Complete documentation for installing, configuring and using Sitemapper can be found in the [wiki area](https://gitlab.com/kirbyzone/sitemapper/wikis/home) of this project.
 
 
 ****
@@ -56,7 +56,7 @@ Sitemapper is released under the MIT License - see the 'LICENSE.md' file include
 
 ## Credits
 
-The Cre8iv Sitemapper is developed by [Cre8iv Click](https://cre8iv.click), but we stand on the shoulder of giants:
+The kirbyzone Sitemapper is developed by [kirbyzone](https://kirby.zone), but we stand on the shoulder of giants:
 
 * the code was started by extending [this Cookbook recipe](https://getkirby.com/docs/cookbook/content/sitemap) in the excellent Kirby Docs
 * the stylesheet is based on work done by [Alan Wu](https://github.com/catcto/sitemap-stylesheet)
