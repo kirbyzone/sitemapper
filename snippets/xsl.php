@@ -39,7 +39,7 @@ $dividerClr = option('cre8ivclick.sitemapper.dividerClr');
 // colour of text in the table column headings
 $thClr = option('cre8ivclick.sitemapper.thClr');
 // colour of border between table rows
-$rowBorderClr = option('cre8ivclick.sitemapper.rowHoverClr') ?: 'lightGray';
+$rowBorderClr = option('cre8ivclick.sitemapper.rowBorderClr') ?: 'lightGray';
 // background colour of table rows when hovered:
 $rowHoverClr = option('cre8ivclick.sitemapper.rowHoverClr');
 //colour of all links on the page
