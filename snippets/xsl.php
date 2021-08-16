@@ -17,7 +17,7 @@
         <html>
             <head>
                 <title>
-                    <?= option('cre8ivclick.sitemapper.title') ?>
+                    <?= option('kirbyzone.sitemapper.title') ?>
                     <xsl:if test="sm:sitemapindex"> - Index</xsl:if>
                 </title>
                 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.2.2/dist/css/uikit.min.css" />
@@ -25,43 +25,43 @@
 <?php
 // Possible Custom Colours:
 //page background colour
-$bgClr = option('cre8ivclick.sitemapper.bgClr');
+$bgClr = option('kirbyzone.sitemapper.bgClr');
 //normal text colour
-$txtClr = option('cre8ivclick.sitemapper.txtClr');
+$txtClr = option('kirbyzone.sitemapper.txtClr');
 //page title
-$titleClr = option('cre8ivclick.sitemapper.titleClr');
+$titleClr = option('kirbyzone.sitemapper.titleClr');
 //background colour of pill-shaped badges shown next to page title
-$badgeBgClr = option('cre8ivclick.sitemapper.badgeBgClr');
+$badgeBgClr = option('kirbyzone.sitemapper.badgeBgClr');
 //text colour of pill-shaped badges shown next to page title
-$badgeTxtClr = option('cre8ivclick.sitemapper.badgeTxtClr');
+$badgeTxtClr = option('kirbyzone.sitemapper.badgeTxtClr');
 //colour of divider line below the title, and at the bottom of page
-$dividerClr = option('cre8ivclick.sitemapper.dividerClr');
+$dividerClr = option('kirbyzone.sitemapper.dividerClr');
 // colour of text in the table column headings
-$thClr = option('cre8ivclick.sitemapper.thClr');
+$thClr = option('kirbyzone.sitemapper.thClr');
 // colour of border between table rows
-$rowBorderClr = option('cre8ivclick.sitemapper.rowHoverClr') ?: 'lightGray';
+$rowBorderClr = option('kirbyzone.sitemapper.rowHoverClr') ?: 'lightGray';
 // background colour of table rows when hovered:
-$rowHoverClr = option('cre8ivclick.sitemapper.rowHoverClr');
+$rowHoverClr = option('kirbyzone.sitemapper.rowHoverClr');
 //colour of all links on the page
-$linkClr = option('cre8ivclick.sitemapper.linkClr');
+$linkClr = option('kirbyzone.sitemapper.linkClr');
 //colour of links when hovered
-$linkHoverClr = option('cre8ivclick.sitemapper.linkHoverClr');
+$linkHoverClr = option('kirbyzone.sitemapper.linkHoverClr');
 //background colour of disclosure buttons
-$btnBgClr = option('cre8ivclick.sitemapper.btnBgClr');
+$btnBgClr = option('kirbyzone.sitemapper.btnBgClr');
 //background colour of disclosure buttons when hovered
-$btnBgHoverClr = option('cre8ivclick.sitemapper.btnBgHoverClr');
+$btnBgHoverClr = option('kirbyzone.sitemapper.btnBgHoverClr');
 //colour of disclosure arrow icon inside disclosure buttons
-$btnIconClr = option('cre8ivclick.sitemapper.btnIconClr');
+$btnIconClr = option('kirbyzone.sitemapper.btnIconClr');
 //colour of disclosure arrow icon when hovered
-$btnIconHoverClr = option('cre8ivclick.sitemapper.btnIconHoverClr');
+$btnIconHoverClr = option('kirbyzone.sitemapper.btnIconHoverClr');
 //colour of icon shown before page/image url
-$urlIconClr = option('cre8ivclick.sitemapper.urlIconClr');
+$urlIconClr = option('kirbyzone.sitemapper.urlIconClr');
 //colour of language tag shown after page url
-$urlTagClr = option('cre8ivclick.sitemapper.urlTagClr');
+$urlTagClr = option('kirbyzone.sitemapper.urlTagClr');
 // intro text for the start of the page:
-$intro = str_replace('[[count]]','<xsl:value-of select="count(sm:urlset/sm:url)"/>',option('cre8ivclick.sitemapper.intro'));
+$intro = str_replace('[[count]]','<xsl:value-of select="count(sm:urlset/sm:url)"/>',option('kirbyzone.sitemapper.intro'));
 // by-line for the end of the page:
-$byLine = option('cre8ivclick.sitemapper.byLine');
+$byLine = option('kirbyzone.sitemapper.byLine');
 ?>
                     body {
 <?php if($bgClr): ?>
@@ -147,7 +147,7 @@ $byLine = option('cre8ivclick.sitemapper.byLine');
                     tr { border-bottom: 1px solid <?= $rowBorderClr ?>; }
 <?php endif;
 // if no colour is specified for the column headings, we try to use the body text colour:
-      $thClr = option('cre8ivclick.sitemapper.thClr') ?: option('cre8ivclick.sitemapper.txtClr');
+      $thClr = option('kirbyzone.sitemapper.thClr') ?: option('kirbyzone.sitemapper.txtClr');
       if($thClr): ?>
                     .uk-table th { color: <?= $thClr ?>; }
 <?php endif;
@@ -162,13 +162,13 @@ $byLine = option('cre8ivclick.sitemapper.byLine');
             <body>
                 <div class="uk-container">
                 <h1 class="uk-heading-divider uk-margin-large-top">
-                    <?= option('cre8ivclick.sitemapper.title') ?>
+                    <?= option('kirbyzone.sitemapper.title') ?>
                     <xsl:if test="sm:sitemapindex">Index</xsl:if>
                     <xsl:if test="sm:urlset/sm:url/mobile:mobile">
                         <span  class="uk-badge">mobile</span>
                     </xsl:if>
                     <xsl:if test="sm:urlset/sm:url/image:image">
-                        <span  class="uk-badge"><?= option('cre8ivclick.sitemapper.imagesStr') ?></span>
+                        <span  class="uk-badge"><?= option('kirbyzone.sitemapper.imagesStr') ?></span>
                     </xsl:if>
                     <xsl:if test="sm:urlset/sm:url/news:news">
                         <span  class="uk-badge">news</span>
@@ -177,7 +177,7 @@ $byLine = option('cre8ivclick.sitemapper.byLine');
                         <span  class="uk-badge">videos</span>
                     </xsl:if>
                     <xsl:if test="sm:urlset/sm:url/xhtml:link">
-                        <span  class="uk-badge"><?= option('cre8ivclick.sitemapper.alternatesStr') ?></span>
+                        <span  class="uk-badge"><?= option('kirbyzone.sitemapper.alternatesStr') ?></span>
                     </xsl:if>
                 </h1>
                 <p>
@@ -228,8 +228,8 @@ $byLine = option('cre8ivclick.sitemapper.byLine');
         <table class="uk-table uk-table-hover">
             <tr>
                 <th></th>
-                <th><?= option('cre8ivclick.sitemapper.urlStr') ?></th>
-                <th><?= option('cre8ivclick.sitemapper.lastModStr') ?></th>
+                <th><?= option('kirbyzone.sitemapper.urlStr') ?></th>
+                <th><?= option('kirbyzone.sitemapper.lastModStr') ?></th>
             </tr>
             <xsl:for-each select="sm:sitemap">
                 <tr>
@@ -257,9 +257,9 @@ $byLine = option('cre8ivclick.sitemapper.byLine');
         <table class="uk-table uk-table-hover uk-table-small">
             <tr>
                 <th></th>
-                <th><?= option('cre8ivclick.sitemapper.urlStr') ?></th>
+                <th><?= option('kirbyzone.sitemapper.urlStr') ?></th>
                 <xsl:if test="sm:url/sm:lastmod">
-                    <th><?= option('cre8ivclick.sitemapper.lastModStr') ?></th>
+                    <th><?= option('kirbyzone.sitemapper.lastModStr') ?></th>
                 </xsl:if>
                 <xsl:if test="sm:url/sm:changefreq">
                     <th>Change Frequency</th>

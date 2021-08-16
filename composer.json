@@ -3,18 +3,17 @@
     "description": "Kirbyzone's Automatic Sitemap Generator Plugin for Kirby",
     "type": "kirby-plugin",
     "license": "MIT",
-    "homepage": "https://gitlab.com/kirbyzone/sitemapper",
+    "homepage": "https://github.com/kirbyzone/sitemapper",
     "authors": [
         {
-            "name": "kirbyzone",
-            "email": "hello@kirby.zone",
+            "name": "Kirbyzone",
+            "email": "support@kirby.zone",
             "homepage": "https://kirby.zone"
         }
     ],
     "support": {
-        "source": "https://gitlab.com/kirbyzone/sitemapper",
-        "issues": "https://gitlab.com/kirbyzone/sitemapper/issues",
-        "wiki": "https://gitlab.com/kirbyzone/sitemapper/wikis/home"
+        "source": "https://github.com/kirbyzone/sitemapper",
+        "issues": "https://github.com/kirbyzone/sitemapper/issues"
     },
     "require": {
         "getkirby/composer-installer": "^1.1"
