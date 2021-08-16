@@ -1,10 +1,10 @@
-### 1.1.4
+### 1.2.1
 change referrences from Cre8iv Click to Kirbyzone
 add extraPages function 
 fix HTML entity issue
 16 August 2021 at 5:20 pm AET
 
-### 1.1.3
+### 1.2
 add ability to change/localise all strings showing in browser template
 11 December 2019 at 4:50 pm AEDT
 
