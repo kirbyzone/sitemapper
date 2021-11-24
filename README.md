@@ -30,7 +30,7 @@ git submodule add https://gitlab.com/cre8ivclick/sitemapper.git site/plugins/sit
 ### Composer
 If you use composer, you can quickly add Sitemapper to your project like this:
 ```
-composer require cre8ivclick/sitemapper
+composer require kirbyzone/sitemapper
 ```
 
 ****
