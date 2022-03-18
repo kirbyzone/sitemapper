@@ -20,7 +20,7 @@ Kirby::plugin('kirbyzone/sitemapper', [
         'urlIconClr' => false, // colour of icon shown before page/image url
         'urlTagClr' => false, // colour of language tag shown after page url
         // title at the top of the sitemap:
-        'title' => site()->title() . ' Sitemap',
+        'title' => 'Sitemap',
         // introductory text that appears below the title - use [[count]] to display URL count:
         'intro' => 'Sitemaps are used by search engines to find and classify the content of you website - more information at <a href="https://sitemaps.org">sitemaps.org</a>. This page displays the sitemap after it has been transformed into a more human-readable format. This sitemap contains <strong>[[count]]</strong> URLs.',
         // string for 'images' pill at top of map:
